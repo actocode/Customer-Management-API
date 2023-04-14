@@ -15,17 +15,16 @@ public class SecurityFilterChain {
 
     @Bean
     public DefaultSecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((authz) -> {
-                    try {
-                        authz
-                                .anyRequest().authenticated().and()
-                                .csrf().disable()
-                                .formLogin().disable();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                })
+        http.authorizeHttpRequests((authz) -> {
+            try {
+                authz.requestMatchers("/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html").permitAll()
+                        .anyRequest().authenticated().and().csrf().disable().formLogin().disable();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        })
                 .httpBasic(withDefaults());
 
         return http.build();
