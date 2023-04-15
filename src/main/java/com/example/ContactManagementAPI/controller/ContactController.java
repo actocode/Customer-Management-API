@@ -3,17 +3,12 @@ package com.example.ContactManagementAPI.controller;
 
 import com.example.ContactManagementAPI.model.Contact;
 import com.example.ContactManagementAPI.service.ContactService;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
-@OpenAPIDefinition(info = @Info(title = "Foos API", version = "v1"))
 public class ContactController {
 
     @Autowired
@@ -49,7 +44,7 @@ public class ContactController {
     }
 
     @PutMapping("/update/contact/{id}")
-    public String updateContact(@RequestBody Contact contact,@PathVariable long id) {
+    public String updateContact(@RequestBody Contact contact, @PathVariable long id) {
         contactService.updateContact(contact, id);
         return "contact updated successfully";
     }
